@@ -42,7 +42,18 @@ Fox.Processing.Crushing = Fox.Processing.Crushing || {};
 		// Get Crushing Time
 		crushingTime = crushingTime || defaultCrushingTime;
 		// Add Recipe
-		event.recipes.createCrushing(outputList, input).processingTime(crushingTime);
+		//event.recipes.createCrushing(outputList, input).processingTime(crushingTime);
+		
+		let recipe = {}
+		recipe['type'] = 'create:crushing';
+		if (input[0] == '#') {
+			recipe['ingredients'] 		= [{ 'tag': input.slice(1) }];
+		} else {
+			recipe['ingredients'] 		= [{ 'item': input }];
+		}
+		recipe['processingTime'] 		= crushingTime;
+		recipe['results'] 				= outputList;
+		event.custom(recipe);
 	}
 
 	//------------------------------------------------
@@ -51,15 +62,15 @@ Fox.Processing.Crushing = Fox.Processing.Crushing || {};
 	namespace.BuildItemList = function(output, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount) {
 		let itemList = [];
 		// Add Output
-		itemList.push(Item.of(output, outputAmount));
+		itemList.push({ 'item': output, 'count': outputAmount});
 		// Add Output Variance
-		itemList.push(Item.of(output, outputAmount/2).withChance(Fox.Processing.CrushingVariance));
+		itemList.push({ 'item': output, 'count': outputAmount/2, 'chance': Fox.Processing.CrushingVariance });
 		// Add Byproduct
 		if (Fox.Processing.ValidByproduct(byproduct)) {
-			itemList.push(Item.of(byproduct, byproductAmount).withChance(Fox.Processing.CrushingByproductChance));
+			itemList.push({ 'item': byproduct, 'count': byproductAmount, 'chance': Fox.Processing.CrushingByproductChance });
 		}
 		if (giveNuggets) {
-			itemList.push(Item.of(Fox.Processing.XPNuggets, nuggetAmount/2).withChance(Fox.Processing.CrushingXPNuggetChance));
+			itemList.push({ 'item': Fox.Processing.XPNuggets, 'count': nuggetAmount, 'chance': Fox.Processing.CrushingXPNuggetChance });
 		}
 
 		return itemList;

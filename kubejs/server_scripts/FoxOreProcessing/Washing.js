@@ -1,9 +1,9 @@
-let Fox = Fox || {};
 //----------------------------------------------------------------------------------------------------
 // * Processing.Washing
 //		This is for Create Item Washing / Splashing
 //----------------------------------------------------------------------------------------------------
 // Namespaces
+let Fox 				= Fox || {};
 Fox.Processing 			= Fox.Processing || {};
 Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 
@@ -29,7 +29,7 @@ Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 		list.forEach(item => {
 			// remove recipe
 			event.remove({
-				type: 'create:crushing',
+				type: 'create:splashing',
 				input: item
 			});
 		});
@@ -40,7 +40,17 @@ Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 		outputList = namespace.BuildItemList(outputItem, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount);
 
 		// Add Recipe
-		event.recipes.createSplashing(outputList, inputItem);
+		//event.recipes.createSplashing(outputList, inputItem);
+		
+		let recipe = {}
+		recipe['type'] = 'create:splashing';
+		if (inputItem[0] == '#') {
+			recipe['ingredients'] 		= [{ 'tag': inputItem.slice(1) }];
+		} else {
+			recipe['ingredients'] 		= [{ 'item': inputItem }];
+		}
+		recipe['results'] 			= outputList;
+		event.custom(recipe);
 	}
 
 	//------------------------------------------------
@@ -49,15 +59,15 @@ Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 	namespace.BuildItemList = function(outputItem, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount) {
 		let itemList = [];
 		// Add Output
-		itemList.push(Item.of(outputItem, outputAmount));
+		itemList.push({ 'item': outputItem, 'count': outputAmount });
 		// Add Output Variance
-		itemList.push(Item.of(outputItem, outputAmount/2).withChance(Fox.Processing.WashingVariance));
+		itemList.push({ 'item': outputItem, 'count': outputAmount, 'chance': Fox.Processing.WashingVariance });
 		// Add Byproduct
 		if (Fox.Processing.ValidByproduct(byproduct)) {
-			itemList.push(Item.of(byproduct, byproductAmount).withChance(Fox.Processing.WashingByproductChance));
+			itemList.push({ 'item': byproduct, 'count': byproductAmount, 'chance': Fox.Processing.WashingByproductChance });
 		}
 		if (giveNuggets) {
-			itemList.push(Item.of(Fox.Processing.XPNuggets, nuggetAmount/2).withChance(Fox.Processing.WashingXPNuggetChance));
+			itemList.push({ 'item': Fox.Processing.XPNuggets, 'count': nuggetAmount, 'chance': Fox.Processing.WashingXPNuggetChance });
 		}
 
 		return itemList;

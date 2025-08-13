@@ -23,6 +23,10 @@ Fox.Processing.Melting = Fox.Processing.Melting || {};
 
 	}
 	namespace.AddCrushedOreRecipe = function(event, inputItem, outputFluid, outputFluidAmount, byproducts, byproductAmounts,  temperature, time) {
+		if (outputFluid == '') {
+			return;
+		}
+		
 		temperature = temperature || 500;
 		time = time || 75;
 
@@ -39,9 +43,10 @@ Fox.Processing.Melting = Fox.Processing.Melting || {};
 		}
 		recipe['ingredient'] 		= { 'item': inputItem };
 		recipe['rate'] 				= 'metal';
-		recipe['result'] 			= {};
-		recipe['result']['tag'] 	= outputFluid;
-		recipe['result']['amount'] 	= outputFluidAmount;
+		recipe['result'] 			= {
+			'tag': outputFluid,
+			'amount': outputFluidAmount
+		};
 		recipe['temperature'] 		= temperature || Fox.Processing.MeltingTempCoal;
 		recipe['time'] 				= time || Fox.Processing.MeltingTime;
 		

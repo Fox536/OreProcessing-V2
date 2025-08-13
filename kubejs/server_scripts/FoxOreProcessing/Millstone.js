@@ -15,7 +15,19 @@ Fox.Processing.Millstone 	= Fox.Processing.Millstone || {};
 	}
 
 	namespace.AddRecipe = function(event, inputItem, outputItem, outputItemAmount) {
-		event.recipes.create.milling(inputItem, Item.of(outputItem, outputItemAmount));
+		let recipe = {}
+		recipe['type'] = 'create:milling';
+		if (inputItem[0] == '#') {
+			recipe['ingredients'] 		= [{ 'tag': inputItem.slice(1) }];
+		} else {
+			recipe['ingredients'] 		= [{ 'item': inputItem }];
+		}
+		recipe['processingTime'] 	= 100;
+		recipe['results'] 			= [{ 
+			'item': outputItem,
+			'count': outputItemAmount
+		}];
+		event.custom(recipe);
 	}
 
 }());
