@@ -1,0 +1,17 @@
+
+
+Raw			Crushed			Melting
+
+Aluminum					Iron
+Cobalt						Diamond
+Copper						Gold
+Gold						Cobalt
+Iron						Steel
+Lead						Silver
+Nickel						Platinum
+Osmium						Iron
+Platinum					Gold
+Silver						Lead
+Tin							Nickel
+Uranium						Lead
+Zinc						Tin
