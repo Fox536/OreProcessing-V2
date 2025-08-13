@@ -11,7 +11,7 @@ Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 ServerEvents.recipes(event => {
 	let namespace = Fox.Processing;
 
-	let oreName 		= '';
+	let oreName 		= 'coal';
 	let isMetal			= false;
 	let breakAmount 	= 4;
 
