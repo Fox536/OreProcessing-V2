@@ -1,6 +1,6 @@
 Supported Ores:
 
-  Vanilla
+  Vanilla:
     x   Iron
     x   Copper
     x   Gold
@@ -13,18 +13,18 @@ Supported Ores:
     o   Quartz
 
     o   Ancient Debris
-  Create
+  Create:
     x   Zinc
   
-  AllTheOres
+  AllTheOres:
     o   xxx
   
-  AllTheModium
+  AllTheModium:
     o   xxx
   
-  Tinkers
+  Tinkers:
     o   xxx
   
-  Silentgear
+  Silentgear:
     o   xxx
   
