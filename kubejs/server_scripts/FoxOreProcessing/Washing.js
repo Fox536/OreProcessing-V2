@@ -1,9 +1,9 @@
-let Fox = Fox || {};
 //----------------------------------------------------------------------------------------------------
 // * Processing.Washing
 //		This is for Create Item Washing / Splashing
 //----------------------------------------------------------------------------------------------------
 // Namespaces
+let Fox 				= Fox || {};
 Fox.Processing 			= Fox.Processing || {};
 Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 
@@ -29,7 +29,7 @@ Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 		list.forEach(item => {
 			// remove recipe
 			event.remove({
-				type: 'create:crushing',
+				type: 'create:splashing',
 				input: item
 			});
 		});
@@ -57,7 +57,7 @@ Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 			itemList.push(Item.of(byproduct, byproductAmount).withChance(Fox.Processing.WashingByproductChance));
 		}
 		if (giveNuggets) {
-			itemList.push(Item.of(Fox.Processing.XPNuggets, nuggetAmount/2).withChance(Fox.Processing.WashingXPNuggetChance));
+			itemList.push(Item.of(Fox.Processing.XPNuggets, nuggetAmount).withChance(Fox.Processing.WashingXPNuggetChance));
 		}
 
 		return itemList;
