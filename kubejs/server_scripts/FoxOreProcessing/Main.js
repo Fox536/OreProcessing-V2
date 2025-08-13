@@ -1,10 +1,11 @@
-let Fox = Fox || {};
 //----------------------------------------------------------------------------------------------------
 // * Processing
 //----------------------------------------------------------------------------------------------------
 // Namespaces
+let Fox 					= Fox || {};
 Fox.Processing 				= Fox.Processing || {};
 Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
+
 // Variables
 // Item Ids
 Fox.Processing.XPNuggets						= 'create:experience_nugget';
@@ -39,35 +40,27 @@ Fox.Processing.MeltingTempLava					= 1000;
 Fox.Processing.MeltingTempBlazingBlood			= 1500;
 Fox.Processing.MeltingTempSoulLava				= 1500;
 Fox.Processing.MeltingTime 						= 75;
-
-(function() {
 	
-	// Call Setup Functions
-	ServerEvents.recipes(event => {
-		Fox.Processing.OresSetup.forEach(setup => {
-			setup(event);
-		})
-
-		Fox.Processing.GetSmeltingAmount() = function() {
-			if (Fox.Processing.UsingReducingSmelting) {
-				return Fox.Processing.SmeltingAmount;
-			}
-
-			return 1;
+(function() {
+	Fox.Processing.GetSmeltingAmount = function() {
+		if (Fox.Processing.UsingReducingSmelting) {
+			return Fox.Processing.SmeltingAmount;
 		}
-		Fox.Processing.GetBlastingAmount() = function() {
-			if (Fox.Processing.UsingReducingSmelting) {
-				return Fox.Processing.BlastingAmount;
-			}
 
-			return 1;
+		return 1;
+	}
+	Fox.Processing.GetBlastingAmount = function() {
+		if (Fox.Processing.UsingReducingSmelting) {
+			return Fox.Processing.BlastingAmount;
 		}
-		Fox.Processing.ValidByproduct = function(byproduct) {
-			return !((byproduct == '') || (byproduct == undefined));
-		}
-	});
 
+		return 1;
+	}
+	Fox.Processing.ValidByproduct = function(byproduct) {
+		return !((byproduct == '') || (byproduct == undefined));
+	}
 }());
+
 
 // Check if Mod Loaded: Platform.isLoaded('modId')
 // e.g. 	Platform.isLoaded('alltheores')
