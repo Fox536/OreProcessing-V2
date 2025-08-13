@@ -41,6 +41,10 @@ Fox.Processing.MeltingTempLava					= 1000;
 Fox.Processing.MeltingTempBlazingBlood			= 1500;
 Fox.Processing.MeltingTempSoulLava				= 1500;
 Fox.Processing.MeltingTime 						= 75;
+
+// MoltenMetals Variables
+Fox.Processing.MoltenRawOreFluidAmount			= 90;
+Fox.Processing.MoltenCrushedOreFluidAmount		= 180;
 	
 (function() {
 	Fox.Processing.ValidByproduct = function(byproduct) {
