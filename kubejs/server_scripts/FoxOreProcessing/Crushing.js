@@ -59,7 +59,7 @@ Fox.Processing.Crushing = Fox.Processing.Crushing || {};
 			itemList.push(Item.of(byproduct, byproductAmount).withChance(Fox.Processing.CrushingByproductChance));
 		}
 		if (giveNuggets) {
-			itemList.push(Item.of(Fox.Processing.XPNuggets, nuggetAmount).withChance(Fox.Processing.CrushingXPNuggetChance));
+			itemList.push(Item.of(Fox.Processing.XPNuggets, nuggetAmount/2).withChance(Fox.Processing.CrushingXPNuggetChance));
 		}
 
 		return itemList;
