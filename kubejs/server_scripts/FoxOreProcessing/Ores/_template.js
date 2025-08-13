@@ -1,13 +1,14 @@
-let Fox = Fox || {};
 //----------------------------------------------------------------------------------------------------
 // * Processing
 //----------------------------------------------------------------------------------------------------
 // Namespaces
-Fox.Processing = Fox.Processing || {};
-Fox.Processing.Ores = Fox.Processing.Ores || {};
-Fox.Processing.OresSetup = Fox.Processing.OresSetup || {}
+let Fox 					= Fox || {};
+Fox.Processing 				= Fox.Processing || {};
+Fox.Processing.Ores 		= Fox.Processing.Ores || {};
+Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 
-(function() {
+// Call Setup Functions
+ServerEvents.recipes(event => {
 	let namespace = Fox.Processing;
 
 	let oreName 		= '';
@@ -21,7 +22,7 @@ Fox.Processing.OresSetup = Fox.Processing.OresSetup || {}
 	data.ingot 				= '#forge:ingots/' + oreName;
 	data.crushed			= 'create:crushed_raw_' + oreName;
 	data.nugget				= '#forge:nuggets/' + oreName;
-	data.byproduct			= '';
+	data.byproduct 			= 'minecraft:redstone';
 	data.moltenFluid		= '';
 	data.moltenByproduct	= [];
 	//data.dust = 'alltheores:' + oreName + '_dust';
@@ -29,7 +30,7 @@ Fox.Processing.OresSetup = Fox.Processing.OresSetup || {}
 	//------------------------------------------------
 	// Setup
 	//------------------------------------------------
-	function setup(event) {
+	let setup = function(event) {
 		removeRecipes(event);
 		addRecipes(event);
 	}
@@ -37,7 +38,7 @@ Fox.Processing.OresSetup = Fox.Processing.OresSetup || {}
 	//------------------------------------------------
 	// Remove Recipes
 	//------------------------------------------------
-	function removeRecipes(event) {
+	let removeRecipes = function(event) {
 		// If item is Metal, and Using ReducedSmelting
 		if (isMetal && Fox.Processing.UsingReducedSmelting) {
 			// Remove Smelting
@@ -47,20 +48,20 @@ Fox.Processing.OresSetup = Fox.Processing.OresSetup || {}
 			// Millstone
 			namespace.Millstone.RemoveRecipeByInput(event, data.raw);
 		}
-
+		
 		// Remove Crushing - Ore
 		namespace.Crushing.RemoveRecipeByInput(event, data.ore);
 		// Remove Crushing - Raw
 		namespace.Crushing.RemoveRecipeByInput(event, data.raw);
 		// Remove Crushing - Raw Block
 		namespace.Crushing.RemoveRecipeByInput(event, data.rawBlock);
-		
+
 		// Remove Washing
 		namespace.Washing.RemoveRecipeByInput(event, data.crushed);
-		
+
 		// Remove Melting
 		//namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.raw);
-		//namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.crushed);
+		namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.crushed);
 		//namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.ore);
 
 		// Remove Molten
@@ -70,7 +71,7 @@ Fox.Processing.OresSetup = Fox.Processing.OresSetup || {}
 	//------------------------------------------------
 	// Add Recipes
 	//------------------------------------------------
-	function addRecipes(event) {
+	let addRecipes = function(event) {
 		// If item is Metal, and Using ReducedSmelting
 		if (isMetal && Fox.Processing.UsingReducedSmelting) {
 			// Add Smelting
@@ -82,25 +83,25 @@ Fox.Processing.OresSetup = Fox.Processing.OresSetup || {}
 		}
 		
 		// Add Crushing - Ore
-		namespace.Crushing.AddRecipe(event, data.raw, data.crushed, namespace.CrushingAmount * breakAmount, data.byproduct, breakAmount, namespace.CrushingGivesNuggets, breakAmount);
+		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, namespace.CrushingAmount * breakAmount, data.byproduct, breakAmount, namespace.CrushingGivesNuggets, breakAmount);
 		// Add Crushing - Raw
 		namespace.Crushing.AddRecipe(event, data.raw, data.crushed, namespace.CrushingAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
 		// Add Crushing - Raw Block
-		namespace.Crushing.AddRecipe(event, data.raw, data.crushed, namespace.CrushingAmount * 9, data.byproduct, 9, namespace.CrushingGivesNuggets, 9);
+		namespace.Crushing.AddRecipe(event, data.rawBlock, data.crushed, namespace.CrushingAmount * 9, data.byproduct, 9, namespace.CrushingGivesNuggets, 9);
 
 		// Add Washing
 		namespace.Washing.AddRecipe(event, data.crushed, data.nugget, namespace.WashingAmount, data.byproduct, 1, namespace.WashingGivesNuggets, 1)
 		
 		// Add Melting
-		//namespace.Melting.AddCrushedOreRecipe(event, data.crushed, data.moltenFluid, namespace.MeltingRawToFluidAmount, data.moltenByproduct, Fox.Processing.MeltingRawToByproductAmount, namespace.MeltingTempCoal);
+		namespace.Melting.AddCrushedOreRecipe(event, data.crushed, data.moltenFluid, namespace.MeltingRawToFluidAmount, data.moltenByproduct, Fox.Processing.MeltingRawToByproductAmount, namespace.MeltingTempCoal);
 
 		// Add Molten
 		//---
 	}
-
+	
+	
 	// Add Setup to OresSetup List
 	if (oreName != '') {
-		namespace.OresSetup.push(setup);
+		setup(event);
 	}
-
-}());
+});
