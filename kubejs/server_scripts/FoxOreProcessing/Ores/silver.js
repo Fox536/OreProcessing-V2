@@ -11,7 +11,7 @@ Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 ServerEvents.recipes(event => {
 	let namespace = Fox.Processing;
 
-	let oreName 		= 'iron';
+	let oreName 		= 'silver';
 	let isMetal			= true;
 	let breakAmount 	= 3;
 
@@ -23,7 +23,7 @@ ServerEvents.recipes(event => {
 	data.crushed			= 'create:crushed_raw_' + oreName;
 	data.nugget				= '#forge:nuggets/' + oreName;
 	data.byproduct 			= 'minecraft:redstone';
-	data.moltenFluid		= "forge:molten_" + oreName;
+	data.moltenFluid		= '';
 	data.moltenByproduct	= [];
 	//data.dust = 'alltheores:' + oreName + '_dust';
 	

@@ -1,17 +1,18 @@
 
 
-Raw			Crushed			Melting
+Raw			Crushed				Melting
 
-Aluminum					Iron
-Cobalt						Diamond
-Copper						Gold
-Gold						Cobalt
-Iron						Steel
-Lead						Silver
-Nickel						Platinum
-Osmium						Iron
-Platinum					Gold
-Silver						Lead
-Tin							Nickel
-Uranium						Lead
-Zinc						Tin
+Aluminum	redstone			Iron
+Cobalt							Diamond
+Copper		clay				Gold
+Gold		quartz				Cobalt
+Iridium		quartz				--
+Iron		redstone			Steel
+Lead		lapis_lazuli		Silver
+Nickel		gunpowder			Platinum
+Osmium		glowstone dust		Iron
+Platinum	quartz				Gold
+Silver		redstone			Lead
+Tin			glowstone dust		Nickel
+Uranium		lapis_lazuli		Lead
+Zinc		gunpowder			Tin
