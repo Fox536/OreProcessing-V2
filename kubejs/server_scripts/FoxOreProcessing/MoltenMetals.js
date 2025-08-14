@@ -1,7 +1,7 @@
 let Fox = Fox || {};
 //----------------------------------------------------------------------------------------------------
-// * Processing.Melting
-//		This is for TCon Item Melting
+// * Processing.Molten
+//		This is for MoltenMetals Ore Processing
 //----------------------------------------------------------------------------------------------------
 // Namespaces
 Fox.Processing 			= Fox.Processing || {};
@@ -9,32 +9,34 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 
 (function() {
 	let namespace = Fox.Processing.Molten;
-	Fox.Processing.Molten.EmptyMolds 	= [];
-	Fox.Processing.Molten.EmptyBucket 	= '';
+	Fox.Processing.Molten.EmptyMolds 	= ['molten_metals:ceramic_ingot_mold', 'molten_metals:ingot_mold'];
+	Fox.Processing.Molten.EmptyBucket 	= 'minecraft:bucket';
 	//Fox.Processing.Molten.EmptyMolds.push('')
 	
 	namespace.RemoveMixingRecipes = function(event, outputItem) {
 		event.remove({ 'output': outputItem, 'type': 'create:mixing' });
 	}
-
+	namespace.RemoveFluidMixingRecipes = function(event, outputItem) {
+		event.remove({ 'output': Fluid.of(outputItem), 'type': 'create:mixing' });
+	}
 	namespace.RemoveFillingRecipes = function(event, inputItems) {
-		inputItems.array.forEach(input => {
-			event.remove({ 'input': input, 'type': 'create:filling' });
+		inputItems.forEach(input => {
+			event.remove({ 'output': input, 'type': 'create:filling' });
 		});
 	}
 	namespace.RemoveEmptyingRecipes = function(event, inputItems) {
-		inputItems.array.forEach(input => {
+		inputItems.forEach(input => {
 			event.remove({ 'input': input, 'type': 'create:emptying' });
 		});
 	}
 	namespace.RemoveWashingRecipes = function(event, inputItems) {
-		inputItems.array.forEach(input => {
+		inputItems.forEach(input => {
 			event.remove({ 'input': input, 'type': 'create:splashing' });
 		});
 	}
 	namespace.RemoveRecipes = function(event, moltenFluid, filledMolds, filledBucket) {
 		// Remove Molten Mixing Recipes
-		namespace.RemoveMixingRecipes(event, moltenFluid);
+		namespace.RemoveFluidMixingRecipes(event, moltenFluid);
 
 		// Remove Mold Filling Recipes
 		namespace.RemoveFillingRecipes(event, filledMolds);
@@ -42,12 +44,12 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		namespace.RemoveEmptyingRecipes(event, filledMolds);
 
 		// Remove Bucket Filling Recipes
-		namespace.RemoveFillingRecipes(event, filledBucket);
+		namespace.RemoveFillingRecipes(event, [filledBucket]);
 		// Remove Bucket Draining Recipes
-		namespace.RemoveEmptyingRecipes(event, filledBucket);
+		namespace.RemoveEmptyingRecipes(event, [filledBucket]);
 
 		// Remove Mold Washing Recipes
-		namespace.RemoveEmptyingRecipes(event, filledMolds);
+		namespace.RemoveWashingRecipes(event, filledMolds)
 		
 	}
 	
@@ -59,23 +61,28 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		namespace.AddEmptyingMoldsRecipe(event, moltenFluid, filledMolds);
 		
 		// Add Bucket Filling Recipes
-		namespace.AddFillingBucketRecipe(event, moltenFluid, filledBucket);
+		//namespace.AddFillingBucketRecipe(event, moltenFluid, filledBucket);
 		// Add Bucket Draining Recipes
-		namespace.AddEmptyingBucketRecipe(event, moltenFluid, filledBucket);
+		//namespace.AddEmptyingBucketRecipe(event, moltenFluid, filledBucket);
 		
 		// Add Mold Washing Recipes
 		namespace.AddSplashingMoldRecipe(event, filledMolds, ingotOutput);
+		
+		if (Platform.isLoaded('tconstruct')) {
+			namespace.AddFillingCopperCanRecipe(event, moltenFluid);
+			namespace.AddEmptyingCopperCanRecipe(event, moltenFluid);
+		}
 		
 	}
 	namespace.AddMixingRecipe = function(event, inputItems, outputFluid, outputFluidAmount) {
 		let recipe = {}
 		recipe['type'] 				= 'create:mixing';
-		recipe['heatRequirements'] 	= 'heated';
+		recipe['heatRequirement'] 	= 'heated';
 		recipe['ingredients'] 		= [];
-		inputItems.foreach(input => {
+		inputItems.forEach(input => {
 			let inputData = { "item": input };
 			if (input[0] == "#") {
-				inputData = { "tag": input.slice(0) };
+				inputData = { "tag": input.slice(1) };
 			}
 			recipe['ingredients'].push(inputData);
 		});
@@ -118,8 +125,8 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		let recipe = {}
 		recipe['type'] 				= 'create:filling';
 		recipe['ingredients'] 		= [];
-		recipe['ingredients'].push({ "item": Fox.Processing.Molten.EmptyBucket });
-		recipe['ingredients'].push({ "fluid": moltenFluid, 'amount': 1000 });
+		recipe['ingredients'].push({ 'item': Fox.Processing.Molten.EmptyBucket });
+		recipe['ingredients'].push({ 'fluid': moltenFluid, 'amount': 1000 });
 		recipe['results'] 			= [];
 		recipe['results'].push({ 'item': filledBucket });
 		
@@ -139,7 +146,7 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 	
 	namespace.AddSplashingMoldRecipe = function(event, filledMolds, ingotOutput) {
 		let emptyMolds = Fox.Processing.Molten.EmptyMolds;
-		for (let i = 0; i < emptyMold.length; i++) {
+		for (let i = 0; i < emptyMolds.length; i++) {
 			let recipe = {};
 			recipe['type'] 				= 'create:splashing';
 			recipe['ingredients'] 		= [];
@@ -147,13 +154,37 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 			recipe['results'] 			= [];
 			recipe['results'].push({ 'item': ingotOutput });
 			if (i < 1) {
-				recipe['results'].push({ 'item': emptyMolds[i], 'chance': 0.50 });
+				recipe['results'].push({ 'item': emptyMolds[i], 'chance': 0.80 });
 			} else {
 				recipe['results'].push({ 'item': emptyMolds[i] });
 			}
 
 			event.custom(recipe);
 		}
+	}
+	
+	namespace.AddFillingCopperCanRecipe = function(event, moltenFluid) {
+		let recipe = {}
+		recipe['type'] 				= 'create:filling';
+		recipe['ingredients'] 		= [];
+		recipe['ingredients'].push({ 'item': 'tconstruct:copper_can' });
+		recipe['ingredients'].push({ 'fluid': moltenFluid, 'amount': 90 });
+		recipe['results'] 			= [];
+		recipe['results'].push({ 'item': 'tconstruct:copper_can', 'nbt':{'fluid': moltenFluid}});
+		
+		event.custom(recipe);
+	}
+	namespace.AddEmptyingCopperCanRecipe = function(event, moltenFluid) {
+		let recipe = {}
+		recipe['type'] 				= 'create:filling';
+		recipe['ingredients'] 		= [];
+		recipe['ingredients'].push({ 'item': 'tconstruct:copper_can', 'nbt':{'fluid': moltenFluid}});
+		recipe['ingredients'].push();
+		recipe['results'] 			= [];
+		recipe['results'].push({ 'item': 'tconstruct:copper_can' });
+		recipe['results'].push({ 'fluid': moltenFluid, 'amount': 90 });
+		
+		event.custom(recipe);
 	}
 	
 	// In Ore Definitions Use:

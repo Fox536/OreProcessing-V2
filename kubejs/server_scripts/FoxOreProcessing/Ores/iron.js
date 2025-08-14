@@ -23,8 +23,12 @@ ServerEvents.recipes(event => {
 	data.crushed			= 'create:crushed_raw_' + oreName;
 	data.nugget				= '#forge:nuggets/' + oreName;
 	data.byproduct 			= 'minecraft:redstone';
-	data.moltenFluid		= "forge:molten_" + oreName;
+	data.meltingFluid		= 'tconstruct:molten_' + oreName;//'#forge:molten_' + oreName;
+	data.moltenFluid		= 'molten_metals:molten_' + oreName;//'#forge:molten_' + oreName;
+	data.moltenFluid		= data.meltingFluid;
 	data.moltenByproduct	= [];
+	data.moltenMolds 		= ['molten_metals:molten_' + oreName + '_ceramic_ingot_mold', 'molten_metals:molten_' + oreName + '_ingot_mold'];
+	data.moltenBucket 		= 'tconstruct:molten_' + oreName + '_bucket';
 	//data.dust = 'alltheores:' + oreName + '_dust';
 	
 	//------------------------------------------------
@@ -64,8 +68,11 @@ ServerEvents.recipes(event => {
 		namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.crushed);
 		//namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.ore);
 
-		// Remove Molten
-		//---
+		// Remove Molten - Main
+		namespace.Molten.RemoveRecipes(event, data.moltenFluid, data.moltenMolds, data.moltenBucket);
+		// Remove Molten - Extra Fluids
+		namespace.Molten.RemoveFluidMixingRecipes(event, 'molten_metals:molten_' + oreName);
+		
 	}
 
 	//------------------------------------------------
@@ -93,10 +100,14 @@ ServerEvents.recipes(event => {
 		namespace.Washing.AddRecipe(event, data.crushed, data.nugget, namespace.WashingAmount, data.byproduct, 1, namespace.WashingGivesNuggets, 1)
 		
 		// Add Melting
-		namespace.Melting.AddCrushedOreRecipe(event, data.crushed, data.moltenFluid, namespace.MeltingCrushedToFluidAmount, data.moltenByproduct, Fox.Processing.MeltingRawToByproductAmount, namespace.MeltingTempCoal);
+		namespace.Melting.AddCrushedOreRecipe(event, data.crushed, data.meltingFluid, namespace.MeltingCrushedToFluidAmount, data.moltenByproduct, Fox.Processing.MeltingRawToByproductAmount, namespace.MeltingTempCoal);
 
 		// Add Molten
-		//---
+		namespace.Molten.AddRecipes(event, data.moltenFluid, data.moltenMolds, data.moltenBucket, data.ingot)
+		// Add Molten Mixing Recipes - Raw
+		namespace.Molten.AddMixingRecipe(event, [data.raw], data.moltenFluid, 90)
+		// Add Molten Mixing Recipes - Crushed
+		namespace.Molten.AddMixingRecipe(event, [data.crushed], data.moltenFluid, 180)
 	}
 	
 	
@@ -104,4 +115,10 @@ ServerEvents.recipes(event => {
 	if (oreName != '') {
 		setup(event);
 	}
+});
+
+ServerEvents.tags('fluid', event => {
+	// Get the #forge:cobblestone tag collection and add Diamond Ore to it
+	event.add('forge:molten_iron', 'molten_metals:molten_iron');
+	
 });

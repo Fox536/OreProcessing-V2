@@ -17,51 +17,57 @@ ServerEvents.recipes(event => {
 	let data 				= {};
 	
 	// Coal
+	oreName 				= 'coal';
 	data 					= {};
-	data.ore				= '#minecraft:coal_ores';
-	data.crushed			= 'minecraft:coal';
+	data.ore				= '#forge:ores/' + oreName;
+	data.crushed			= 'minecraft:' + oreName;
 	data.byproduct 			= '';
-	data.breakAmount		= 4;
+	data.breakAmount		= 6;
 	let coal = data;
 	
 	// Redstone
+	oreName 				= 'redstone';
 	data 					= {};
-	data.ore				= '';
-	data.crushed			= 'minecraft:redstone';
+	data.ore				= '#forge:ores/' + oreName;
+	data.crushed			= '#forge:dusts/' + oreName;
 	data.byproduct 			= '';
-	data.breakAmount		= 4;
+	data.breakAmount		= 10;
 	let redstone = data;
 	
 	// Lapis
+	oreName 				= 'lapis';
 	data 					= {};
-	data.ore				= '';
-	data.crushed			= 'minecraft:lapis_lazuli';
+	data.ore				= '#forge:ores/' + oreName;
+	data.crushed			= '#forge:gems/' + oreName;
 	data.byproduct 			= '';
-	data.breakAmount		= 4;
+	data.breakAmount		= 24;
 	let lapis = data;
 	
 	// Diamond
+	oreName 				= 'diamond';
 	data 					= {};
-	data.ore				= '';
-	data.crushed			= 'minecraft:';
+	data.ore				= '#forge:ores/' + oreName;
+	data.crushed			= '#forge:gems/' + oreName;
 	data.byproduct 			= '';
 	data.breakAmount		= 4;
 	let diamond = data;
 	
 	// Emerald
+	oreName 				= 'emerald';
 	data 					= {};
-	data.ore				= '';
-	data.crushed			= 'minecraft:';
+	data.ore				= '#forge:ores/' + oreName;
+	data.crushed			= '#forge:gems/' + oreName;
 	data.byproduct 			= '';
 	data.breakAmount		= 4;
 	let emerald = data;
 	
 	// Quartz
+	oreName 				= 'quartz';
 	data 					= {};
-	data.ore				= '';
-	data.crushed			= 'minecraft:';
+	data.ore				= '#forge:ores/' + oreName;
+	data.crushed			= '#forge:gems/' + oreName;
 	data.byproduct 			= '';
-	data.breakAmount		= 4;
+	data.breakAmount		= 6;
 	let quartz = data;
 	
 	//------------------------------------------------
@@ -84,23 +90,34 @@ ServerEvents.recipes(event => {
 		removeRecipe_Quartz(event);
 	}
 	let removeRecipe_Coal = function(event) {
+		let data = coal;
 		// Remove Crushing - Ore
 		namespace.Crushing.RemoveRecipeByInput(event, data.ore);
 	}
 	let removeRecipe_Redstone = function(event) {
-		
+		let data = redstone;
+		// Remove Crushing - Ore
+		namespace.Crushing.RemoveRecipeByInput(event, data.ore);
 	}
 	let removeRecipe_Lapis = function(event) {
-		
+		let data = lapis;
+		// Remove Crushing - Ore
+		namespace.Crushing.RemoveRecipeByInput(event, data.ore);
 	}
 	let removeRecipe_Diamond = function(event) {
-		
+		let data = diamond;
+		// Remove Crushing - Ore
+		namespace.Crushing.RemoveRecipeByInput(event, data.ore);
 	}
 	let removeRecipe_Emerald = function(event) {
-		
+		let data = emerald;
+		// Remove Crushing - Ore
+		namespace.Crushing.RemoveRecipeByInput(event, data.ore);
 	}
 	let removeRecipe_Quartz = function(event) {
-		
+		let data = quartz;
+		// Remove Crushing - Ore
+		namespace.Crushing.RemoveRecipeByInput(event, data.ore);
 	}
 
 	//------------------------------------------------
@@ -120,19 +137,29 @@ ServerEvents.recipes(event => {
 		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
 	}
 	let addRecipe_Redstone = function(event) {
-		
+		let data = redstone;
+		// Add Crushing - Ore
+		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
 	}
 	let addRecipe_Lapis = function(event) {
-		
+		let data = lapis;
+		// Add Crushing - Ore
+		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
 	}
 	let addRecipe_Diamond = function(event) {
-		
+		let data = diamond;
+		// Add Crushing - Ore
+		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
 	}
 	let addRecipe_Emerald = function(event) {
-		
+		let data = emerald;
+		// Add Crushing - Ore
+		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
 	}
 	let addRecipe_Quartz = function(event) {
-		
+		let data = quartz;
+		// Add Crushing - Ore
+		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
 	}
 	
 	// Add Setup to OresSetup List

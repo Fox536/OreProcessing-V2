@@ -11,7 +11,7 @@ Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 ServerEvents.recipes(event => {
 	let namespace = Fox.Processing;
 
-	let oreName 		= '';
+	let oreName 		= 'brass';
 	
 	let data 				= {};
 	data.ingot 				= '#forge:ingots/' + oreName;
@@ -32,24 +32,22 @@ ServerEvents.recipes(event => {
 	// Remove Recipes
 	//------------------------------------------------
 	let removeRecipes = function(event) {
-		// Remove Melting
-		//namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.raw);
-		namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.crushed);
-		//namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.ore);
-
-		// Remove Molten
-		//---
+		// Remove Molten - Main
+		namespace.Molten.RemoveRecipes(event, data.moltenFluid, data.moltenMolds, data.moltenBucket);
+		// Remove Molten - Extra Fluids
+		namespace.Molten.RemoveFluidMixingRecipes(event, 'molten_metals:molten_' + oreName);
 	}
 
 	//------------------------------------------------
 	// Add Recipes
 	//------------------------------------------------
 	let addRecipes = function(event) {
-		// Add Melting
-		namespace.Melting.AddCrushedOreRecipe(event, data.crushed, data.moltenFluid, namespace.MeltingRawToFluidAmount, data.moltenByproduct, Fox.Processing.MeltingRawToByproductAmount, namespace.MeltingTempCoal);
-
 		// Add Molten
-		//---
+		namespace.Molten.AddRecipes(event, data.moltenFluid, data.moltenMolds, data.moltenBucket, data.ingot)
+		// Add Molten Mixing Recipes - Ingot
+		namespace.Molten.AddMixingRecipe(event, ['#forge:ingots/copper', '#forge:ingots/zinc'], data.moltenFluid, 180);
+		// Add Molten Mixing Recipes - Crushed
+		namespace.Molten.AddMixingRecipe(event, ['create:crushed_raw_copper', 'create:crushed_raw_zinc'], data.moltenFluid, 360);
 	}
 	
 	
