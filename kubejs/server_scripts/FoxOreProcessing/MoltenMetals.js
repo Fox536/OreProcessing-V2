@@ -9,32 +9,51 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 
 (function() {
 	let namespace = Fox.Processing.Molten;
+	let enablingMods = ['molten_metals'];
 	Fox.Processing.Molten.EmptyMolds 	= ['molten_metals:ceramic_ingot_mold', 'molten_metals:ingot_mold'];
 	Fox.Processing.Molten.EmptyBucket 	= 'minecraft:bucket';
 	//Fox.Processing.Molten.EmptyMolds.push('')
 	
 	namespace.RemoveMixingRecipes = function(event, outputItem) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		event.remove({ 'output': outputItem, 'type': 'create:mixing' });
 	}
 	namespace.RemoveFluidMixingRecipes = function(event, outputItem) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		event.remove({ 'output': Fluid.of(outputItem), 'type': 'create:mixing' });
 	}
 	namespace.RemoveFillingRecipes = function(event, inputItems) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		inputItems.forEach(input => {
 			event.remove({ 'output': input, 'type': 'create:filling' });
 		});
 	}
 	namespace.RemoveEmptyingRecipes = function(event, inputItems) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		inputItems.forEach(input => {
 			event.remove({ 'input': input, 'type': 'create:emptying' });
 		});
 	}
 	namespace.RemoveWashingRecipes = function(event, inputItems) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		inputItems.forEach(input => {
 			event.remove({ 'input': input, 'type': 'create:splashing' });
 		});
 	}
 	namespace.RemoveRecipes = function(event, moltenFluid, filledMolds, filledBucket) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		// Remove Molten Mixing Recipes
 		namespace.RemoveFluidMixingRecipes(event, moltenFluid);
 
@@ -55,6 +74,9 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 	
 	// (event, rawOre, crushedOre, moltenFluid, filledMolds, filledBucket)
 	namespace.AddRecipes = function(event, moltenFluid, filledMolds, filledBucket, ingotOutput) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		// Add Mold Filling Recipes
 		namespace.AddFillingMoldsRecipe(event, moltenFluid, filledMolds);
 		// Add Mold Draining Recipes
@@ -75,6 +97,9 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		
 	}
 	namespace.AddMixingRecipe = function(event, inputItems, outputFluid, outputFluidAmount) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let recipe = {}
 		recipe['type'] 				= 'create:mixing';
 		recipe['heatRequirement'] 	= 'heated';
@@ -93,6 +118,9 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		event.custom(recipe);
 	}
 	namespace.AddFillingMoldsRecipe = function(event, moltenFluid, filledMolds) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let emptyMolds = Fox.Processing.Molten.EmptyMolds;
 		for (let i = 0; i < emptyMolds.length; i++) {
 			let recipe = {}
@@ -107,6 +135,9 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		}
 	}
 	namespace.AddEmptyingMoldsRecipe = function(event, moltenFluid, filledMolds) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let emptyMolds = Fox.Processing.Molten.EmptyMolds;
 		for (let i = 0; i < emptyMolds.length; i++) {
 			let recipe = {}
@@ -122,6 +153,9 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 	}
 	
 	namespace.AddFillingBucketRecipe = function(event, moltenFluid, filledBucket) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let recipe = {}
 		recipe['type'] 				= 'create:filling';
 		recipe['ingredients'] 		= [];
@@ -133,6 +167,9 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		event.custom(recipe);
 	}
 	namespace.AddEmptyingBucketRecipe = function(event, moltenFluid, filledBucket) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let recipe = {}
 		recipe['type'] 				= 'create:emptying';
 		recipe['ingredients'] 		= [];
@@ -145,6 +182,9 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 	}
 	
 	namespace.AddSplashingMoldRecipe = function(event, filledMolds, ingotOutput) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let emptyMolds = Fox.Processing.Molten.EmptyMolds;
 		for (let i = 0; i < emptyMolds.length; i++) {
 			let recipe = {};
@@ -164,6 +204,9 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 	}
 	
 	namespace.AddFillingCopperCanRecipe = function(event, moltenFluid) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let recipe = {}
 		recipe['type'] 				= 'create:filling';
 		recipe['ingredients'] 		= [];
@@ -175,6 +218,9 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		event.custom(recipe);
 	}
 	namespace.AddEmptyingCopperCanRecipe = function(event, moltenFluid) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let recipe = {}
 		recipe['type'] 				= 'create:filling';
 		recipe['ingredients'] 		= [];

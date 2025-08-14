@@ -5,7 +5,13 @@
 let Fox 					= Fox || {};
 Fox.Processing 				= Fox.Processing || {};
 Fox.Processing.Ores 		= Fox.Processing.Ores || {};
-Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
+Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {};
+
+// Check if running mods with this ore
+let enablingMods = ['alltheores', 'immersiveengineering'];
+if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+	return;
+}
 
 // Call Setup Functions
 ServerEvents.recipes(event => {
@@ -45,9 +51,9 @@ ServerEvents.recipes(event => {
 			namespace.Smelting.RemoveRecipeByInput(event, data.raw);
 			// Remove Blasting
 			namespace.Blasting.RemoveRecipeByInput(event, data.raw);
-			// Millstone
-			namespace.Millstone.RemoveRecipeByInput(event, data.raw);
 		}
+		// Millstone
+		namespace.Millstone.RemoveRecipeByInput(event, data.raw);
 		
 		// Remove Crushing - Ore
 		namespace.Crushing.RemoveRecipeByInput(event, data.ore);
@@ -58,7 +64,8 @@ ServerEvents.recipes(event => {
 
 		// Remove Washing
 		namespace.Washing.RemoveRecipeByInput(event, data.crushed);
-
+		
+		
 		// Remove Melting
 		//namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.raw);
 		namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.crushed);
@@ -78,9 +85,9 @@ ServerEvents.recipes(event => {
 			namespace.Smelting.AddRecipe(event, data.raw, data.nugget, Fox.Processing.SmeltingAmount);
 			// Add Blasting
 			namespace.Blasting.AddRecipe(event, data.raw, data.nugget, Fox.Processing.BlastingAmount);
-			// Millstone
-			namespace.Millstone.AddRecipe(event, data.raw, data.crushed, Fox.Processing.MillingAmount);
 		}
+		// Millstone
+		namespace.Millstone.AddRecipe(event, data.raw, data.crushed, Fox.Processing.MillingAmount);
 		
 		// Add Crushing - Ore
 		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, namespace.CrushingAmount * breakAmount, data.byproduct, breakAmount, namespace.CrushingGivesNuggets, breakAmount);

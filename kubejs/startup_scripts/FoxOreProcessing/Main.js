@@ -1,5 +1,8 @@
 StartupEvents.registry('item', event => {
 	let items = [];
+	
+	// Anceint Debris
+	items.push(['crushed_raw_ancient_debris', 'Crushed Raw Anceint Debris']);
 
 	if (Platform.isLoaded('alltheores')) {
 		items.push(['crushed_raw_iridium', 'Crushed Raw Iridium']);

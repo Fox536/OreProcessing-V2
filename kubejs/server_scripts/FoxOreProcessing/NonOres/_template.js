@@ -7,6 +7,12 @@ Fox.Processing 				= Fox.Processing || {};
 Fox.Processing.Ores 		= Fox.Processing.Ores || {};
 Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 
+// Check if running mods with this ore
+let enablingMods = ['create'];
+if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+	return;
+}
+
 // Call Setup Functions
 ServerEvents.recipes(event => {
 	let namespace = Fox.Processing;
@@ -19,7 +25,6 @@ ServerEvents.recipes(event => {
 	data.ore				= '#minecraft:coal_ores';
 	data.crushed			= 'minecraft:' + oreName;
 	data.byproduct 			= '';
-	//data.dust = 'alltheores:' + oreName + '_dust';
 	
 	//------------------------------------------------
 	// Setup

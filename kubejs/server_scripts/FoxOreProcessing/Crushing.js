@@ -12,6 +12,12 @@ Fox.Processing.Crushing = Fox.Processing.Crushing || {};
 	let defaultCrushingTime = 400;
 
 	namespace.RemoveRecipeByInput = function(event, inputItem) {
+		// Check if running mods with this ore
+		let enablingMods = ['create'];
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
+		
 		let list = [];
 		// Skip if Needed
 		if (inputItem == undefined) {
@@ -36,6 +42,12 @@ Fox.Processing.Crushing = Fox.Processing.Crushing || {};
 		});
 	}
 	namespace.AddRecipe = function(event, input, output, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount, crushingTime) {
+		// Check if running mods with this ore
+		let enablingMods = ['create'];
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
+		
 		let outputList;
 		// Get OutputList
 		outputList = namespace.BuildItemList(output, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount)
@@ -60,6 +72,12 @@ Fox.Processing.Crushing = Fox.Processing.Crushing || {};
 	// Build Item List
 	//------------------------------------------------
 	namespace.BuildItemList = function(output, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount) {
+		// Check if running mods with this ore
+		let enablingMods = ['create'];
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
+		
 		let itemList = [];
 		// Add Output
 		itemList.push({ 'item': output, 'count': outputAmount});

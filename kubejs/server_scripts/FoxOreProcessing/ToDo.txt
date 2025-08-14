@@ -6,3 +6,25 @@ Still to do...
 	- Add ATM
 	- Add Vibranium
 	- Add Unobtainium
+	
+	
+	
+Molten Ores Setup
+	O		Aluminum
+	x		Copper
+	x		Gold
+	O		Iridium
+	x		Iron
+	O		Lead
+	O		Nickel
+	O		Osmium
+	O		Platinum
+	O		Silver
+	O		Tin
+	O		Uranium
+	x		Zinc
+	
+	O		Ancient Debris
+	O		AllTheModium
+	O		Vibranium
+	O		Unobtainium

@@ -9,8 +9,12 @@ Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 
 (function() {
 	let namespace = Fox.Processing.Washing;
+	let enablingMods = ['create'];
 	
 	namespace.RemoveRecipeByInput = function(event, inputItem) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let list = [];
 		// Skip if Needed
 		if (inputItem == undefined) {
@@ -35,6 +39,9 @@ Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 		});
 	}
 	namespace.AddRecipe = function(event, inputItem, outputItem, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let outputList;
 		// Get OutputList
 		outputList = namespace.BuildItemList(outputItem, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount);
@@ -57,6 +64,9 @@ Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 	// Build Item List
 	//------------------------------------------------
 	namespace.BuildItemList = function(outputItem, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let itemList = [];
 		// Add Output
 		itemList.push({ 'item': outputItem, 'count': outputAmount });

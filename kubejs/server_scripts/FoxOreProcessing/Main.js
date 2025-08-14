@@ -50,6 +50,19 @@ Fox.Processing.MoltenCrushedOreFluidAmount		= 180;
 	Fox.Processing.ValidByproduct = function(byproduct) {
 		return !((byproduct == '') || (byproduct == undefined));
 	}
+	
+	Fox.Processing.ShouldLoadModule = function(modId) {
+		if (modIds.length == 0) {
+			return true;
+		}
+		modIds.array.forEach(modId => {
+			if (Platform.isLoaded(modId)) {
+				return true;
+			}
+		});
+		return false;
+	}
+	
 }());
 
 

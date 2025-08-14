@@ -10,19 +10,35 @@ Fox.Processing.Melting = Fox.Processing.Melting || {};
 (function() {
 	let namespace = Fox.Processing.Melting;
 	
+	// Check if running mods with this ore
+	let enablingMods = ['tconstruct'];
+	
 	namespace.RemoveMeltingRecipeByInput = function(event, inputItem) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		event.remove({ 'type': 'tconstruct:melting', 'input': inputItem})
 
 	}
 	namespace.RemoveOreMeltingRecipeByInput = function(event, inputItem) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
+		// Check if running mods with this ore
 		event.remove({ 'type': 'tconstruct:ore_melting', 'input': inputItem})
 
 	}
 	namespace.RemoveAlloyRecipeByInput = function(event, inputItem) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		event.remove({ 'type': 'tconstruct:alloy', 'input': inputItem})
 
 	}
 	namespace.AddCrushedOreRecipe = function(event, inputItem, outputFluid, outputFluidAmount, byproducts, byproductAmounts,  temperature, time) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		if (outputFluid == '') {
 			return;
 		}
@@ -54,6 +70,9 @@ Fox.Processing.Melting = Fox.Processing.Melting || {};
 	}
 
 	namespace.AddAlloyRecipe = function(event, inputItems, outputFluid, outputFluidAmount, temperature, time) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
 		let recipe = {}
 		recipe['type'] = 'tconstruct:alloy';
 		recipe['inputs'] 		= [];
