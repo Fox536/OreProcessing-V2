@@ -9,13 +9,17 @@ Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 
 // Call Setup Functions
 ServerEvents.recipes(event => {
+	// Check if running mods with this ore
+	let enablingMods = ['create'];
+	if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+		return;
+	}
 	let namespace = Fox.Processing;
 
 	let oreName 		= 'brass';
 	
 	let data 				= {};
 	data.ingot 				= '#forge:ingots/' + oreName;
-	data.crushed			= 'create:crushed_raw_' + oreName;
 	data.moltenFluid		= 'tconstruct:molten_' + oreName;
 	data.moltenMolds 		= ['molten_metals:molten_' + oreName + '_ceramic_ingot_mold', 'molten_metals:molten_' + oreName + '_ingot_mold'];
 	data.moltenBucket 		= 'tconstruct:molten_' + oreName + '_bucket';
@@ -46,6 +50,7 @@ ServerEvents.recipes(event => {
 		namespace.Molten.AddRecipes(event, data.moltenFluid, data.moltenMolds, data.moltenBucket, data.ingot)
 		// Add Molten Mixing Recipes - Ingot
 		namespace.Molten.AddMixingRecipe(event, ['#forge:ingots/copper', '#forge:ingots/zinc'], data.moltenFluid, 180);
+		namespace.Molten.AddMixingRecipe(event, ['#forge:dusts/copper', '#forge:dusts/zinc'], data.moltenFluid, 180);
 		// Add Molten Mixing Recipes - Crushed
 		namespace.Molten.AddMixingRecipe(event, ['create:crushed_raw_copper', 'create:crushed_raw_zinc'], data.moltenFluid, 360);
 	}

@@ -7,31 +7,33 @@ Fox.Processing 				= Fox.Processing || {};
 Fox.Processing.Ores 		= Fox.Processing.Ores || {};
 Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 
-// Check if running mods with this ore
-let enablingMods = ['alltheores', 'mekanism'];
-if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
-	return;
-}
-
 // Call Setup Functions
 ServerEvents.recipes(event => {
+	// Check if running mods with this ore
+	let enablingMods = ['alltheores', 'mekanism'];
+	if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+		return;
+	}
 	let namespace = Fox.Processing;
 
 	let oreName 		= 'osmium';
 	let isMetal			= true;
 	let breakAmount 	= 3;
 
-	let data 				= {};
-	data.ore				= '#forge:ores/' + oreName;
-	data.raw				= '#forge:raw_materials/' + oreName;
-	data.rawBlock			= '#forge:storage_blocks/raw_' + oreName;
-	data.ingot 				= '#forge:ingots/' + oreName;
-	data.crushed			= 'create:crushed_raw_' + oreName;
-	data.nugget				= '#forge:nuggets/' + oreName;
-	data.byproduct 			= 'minecraft:glowstone_dust';
-	data.moltenFluid		= '';
-	data.moltenByproduct	= [];
-	//data.dust = 'alltheores:' + oreName + '_dust';
+	let data 					= {};
+	data.ore					= '#forge:ores/' + oreName;
+	data.raw					= '#forge:raw_materials/' + oreName;
+	data.rawBlock				= '#forge:storage_blocks/raw_' + oreName;
+	data.ingot 					= '#forge:ingots/' + oreName;
+	data.crushed				= 'create:crushed_raw_' + oreName;
+	data.nugget					= '#forge:nuggets/' + oreName;
+	data.byproduct 				= 'minecraft:glowstone_dust';
+	data.meltingFluid			= 'tconstruct:molten_' + oreName;
+	data.moltenFluid			= data.meltingFluid;
+	data.moltenFluidToRemove 	= ['molten_metals:molten_' + oreName]
+	data.moltenByproduct		= [];
+	data.moltenMolds 			= [];
+	data.moltenBucket 			= 'tconstruct:molten_' + oreName + '_bucket';
 	
 	//------------------------------------------------
 	// Setup
@@ -70,8 +72,12 @@ ServerEvents.recipes(event => {
 		namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.crushed);
 		//namespace.Melting.RemoveOreMeltingRecipeByInput(event, data.ore);
 
-		// Remove Molten
-		//---
+		// Remove Molten - Main
+		namespace.Molten.RemoveRecipes(event, data.moltenFluid, data.moltenMolds, data.moltenBucket);
+		// Remove Molten - Extra Fluids
+		data.moltenFluidToRemove.forEach(fluid => {
+			namespace.Molten.RemoveFluidMixingRecipes(event, fluid);	
+		});
 	}
 
 	//------------------------------------------------
@@ -96,13 +102,17 @@ ServerEvents.recipes(event => {
 		namespace.Crushing.AddRecipe(event, data.rawBlock, data.crushed, namespace.CrushingAmount * 9, data.byproduct, 9, namespace.CrushingGivesNuggets, 9);
 
 		// Add Washing
-		namespace.Washing.AddRecipe(event, data.crushed, data.nugget, namespace.WashingAmount, data.byproduct, 1, namespace.WashingGivesNuggets, 1)
+		namespace.Washing.AddRecipeForCrushedOre(event, data.crushed, data.nugget, namespace.WashingAmount, data.byproduct, 1, namespace.WashingGivesNuggets, 1)
 		
 		// Add Melting
-		namespace.Melting.AddCrushedOreRecipe(event, data.crushed, data.moltenFluid, namespace.MeltingCrushedToFluidAmount, data.moltenByproduct, Fox.Processing.MeltingRawToByproductAmount, namespace.MeltingTempCoal);
+		namespace.Melting.AddCrushedOreRecipe(event, data.crushed, data.moltenFluid, namespace.MeltingCrushedToFluidAmount, data.moltenByproduct, Fox.Processing.MeltingRawToByproductAmount, namespace.MeltingTempLava);
 
 		// Add Molten
-		//---
+		namespace.Molten.AddRecipes(event, data.moltenFluid, data.moltenMolds, data.moltenBucket, data.ingot);
+		// Add Molten Mixing Recipes - Raw
+		namespace.Molten.AddMixingRecipe(event, [data.raw], data.moltenFluid, 90);
+		// Add Molten Mixing Recipes - Crushed
+		namespace.Molten.AddMixingRecipe(event, [data.crushed], data.moltenFluid, 180);
 	}
 	
 	

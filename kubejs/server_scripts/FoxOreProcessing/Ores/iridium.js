@@ -7,14 +7,13 @@ Fox.Processing 				= Fox.Processing || {};
 Fox.Processing.Ores 		= Fox.Processing.Ores || {};
 Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {};
 
-// Check if running mods with this ore
-let enablingMods = ['alltheores'];
-if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
-	return;
-}
-
 // Call Setup Functions
 ServerEvents.recipes(event => {
+	// Check if running mods with this ore
+	let enablingMods = ['alltheores'];
+	if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+		return;
+	}
 	let namespace = Fox.Processing;
 
 	let oreName 		= 'iridium';
@@ -26,7 +25,7 @@ ServerEvents.recipes(event => {
 	data.raw				= '#forge:raw_materials/' + oreName;
 	data.rawBlock			= '#forge:storage_blocks/raw_' + oreName;
 	data.ingot 				= '#forge:ingots/' + oreName;
-	data.crushed			= 'create:crushed_raw_' + oreName;
+	data.crushed			= 'kubejs:crushed_raw_' + oreName;
 	data.nugget				= '#forge:nuggets/' + oreName;
 	data.byproduct 			= 'minecraft:quartz';
 	data.moltenFluid		= '';
@@ -85,6 +84,11 @@ ServerEvents.recipes(event => {
 			// Add Blasting
 			namespace.Blasting.AddRecipe(event, data.raw, data.nugget, Fox.Processing.BlastingAmount);
 		}
+		// Add Smelting
+		namespace.Smelting.AddRecipe(event, data.crushed, data.ingot, 1);
+		// Add Blasting
+		namespace.Blasting.AddRecipe(event, data.crushed, data.ingot, 1);
+		
 		// Millstone
 		namespace.Millstone.AddRecipe(event, data.raw, data.crushed, Fox.Processing.MillingAmount);
 		
@@ -96,11 +100,11 @@ ServerEvents.recipes(event => {
 		namespace.Crushing.AddRecipe(event, data.rawBlock, data.crushed, namespace.CrushingAmount * 9, data.byproduct, 9, namespace.CrushingGivesNuggets, 9);
 
 		// Add Washing
-		namespace.Washing.AddRecipe(event, data.crushed, data.nugget, namespace.WashingAmount, data.byproduct, 1, namespace.WashingGivesNuggets, 1)
+		namespace.Washing.AddRecipeForCrushedOre(event, data.crushed, data.nugget, namespace.WashingAmount, data.byproduct, 1, namespace.WashingGivesNuggets, 1)
 		
 		// Add Melting
 		// No Fluid
-		//namespace.Melting.AddCrushedOreRecipe(event, data.crushed, data.moltenFluid, namespace.MeltingRawToFluidAmount, data.moltenByproduct, Fox.Processing.MeltingRawToByproductAmount, namespace.MeltingTempCoal);
+		//namespace.Melting.AddCrushedOreRecipe(event, data.crushed, data.moltenFluid, namespace.MeltingRawToFluidAmount, data.moltenByproduct, Fox.Processing.MeltingRawToByproductAmount, namespace.MeltingTempLava);
 
 		// Add Molten
 		//---

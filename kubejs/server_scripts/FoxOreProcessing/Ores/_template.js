@@ -7,14 +7,13 @@ Fox.Processing 				= Fox.Processing || {};
 Fox.Processing.Ores 		= Fox.Processing.Ores || {};
 Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 
-// Check if running mods with this ore
-let enablingMods = ['create'];
-if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
-	return;
-}
-
 // Call Setup Functions
 ServerEvents.recipes(event => {
+	// Check if running mods with this ore
+	let enablingMods = ['create'];
+	if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+		return;
+	}
 	let namespace = Fox.Processing;
 
 	let oreName 		= '';
@@ -29,7 +28,7 @@ ServerEvents.recipes(event => {
 	data.crushed				= 'create:crushed_raw_' + oreName;
 	data.nugget					= '#forge:nuggets/' + oreName;
 	data.byproduct 				= 'minecraft:redstone';
-	data.meltingFluid			= 'tconstruct:molten_' + oreName;//'#forge:molten_' + oreName;
+	data.meltingFluid			= 'tconstruct:molten_' + oreName;
 	data.moltenFluid			= data.meltingFluid;
 	data.moltenFluidToRemove 	= ['molten_metals:molten_' + oreName]
 	data.moltenByproduct		= [];
@@ -109,7 +108,7 @@ ServerEvents.recipes(event => {
 		namespace.Washing.AddRecipe(event, data.crushed, data.nugget, namespace.WashingAmount, data.byproduct, 1, namespace.WashingGivesNuggets, 1)
 		
 		// Add Melting
-		//namespace.Melting.AddCrushedOreRecipe(event, data.crushed, data.moltenFluid, namespace.MeltingRawToFluidAmount, data.moltenByproduct, Fox.Processing.MeltingRawToByproductAmount, namespace.MeltingTempCoal);
+		//namespace.Melting.AddCrushedOreRecipe(event, data.crushed, data.moltenFluid, namespace.MeltingCrushedToFluidAmount, data.moltenByproduct, Fox.Processing.MeltingRawToByproductAmount, namespace.MeltingTempCoal);
 		
 		/*
 		// Add Molten

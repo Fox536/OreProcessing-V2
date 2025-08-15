@@ -2,29 +2,49 @@
 
 Still to do...
 
-	- Add Crush Raw Ancient Debris
-	- Add ATM
-	- Add Vibranium
-	- Add Unobtainium
+	- Remove Dust Mixing Recipes
+	- Add Alloys in Molds for washing recipe
+	
 	
 	
 	
 Molten Ores Setup
-	O		Aluminum
+	x		Aluminum
 	x		Copper
 	x		Gold
-	O		Iridium
+	o		Iridium (no fluid yet!)
 	x		Iron
-	O		Lead
-	O		Nickel
-	O		Osmium
-	O		Platinum
-	O		Silver
-	O		Tin
-	O		Uranium
+	x		Lead
+	x		Nickel
+	x		Osmium
+	x		Platinum
+	x		Silver
+	x		Tin
+	x		Uranium
 	x		Zinc
 	
-	O		Ancient Debris
-	O		AllTheModium
-	O		Vibranium
-	O		Unobtainium
+	x		Ancient Debris
+	x		AllTheModium
+	x		Vibranium
+	x		Unobtainium
+	
+	o 		crimson Iron
+	O		azure Silver
+	
+	x		cobalt
+	
+	O		scguns
+	O		forbidden arcanus
+	
+	
+-----------
+Alloys
+	O		Invar
+	O		Electrum
+	O		Bronze
+	O		Enderium
+	O		Lumin
+	O		Signalum
+	O		Constantan
+	O		Brass
+	O		Steel 	(No Recipe Yet!)

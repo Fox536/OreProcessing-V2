@@ -7,14 +7,13 @@ Fox.Processing 				= Fox.Processing || {};
 Fox.Processing.Ores 		= Fox.Processing.Ores || {};
 Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 
-// Check if running mods with this ore
-let enablingMods = ['forbidden_arcanus'];
-if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
-	return;
-}
-
 // Call Setup Functions
 ServerEvents.recipes(event => {
+	// Check if running mods with this ore
+	let enablingMods = ['forbidden_arcanus'];
+	if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+		return;
+	}
 	let namespace = Fox.Processing;
 
 	let oreName 		= '';

@@ -42,13 +42,19 @@ Fox.Processing.Melting = Fox.Processing.Melting || {};
 		if (outputFluid == '') {
 			return;
 		}
+		console.log(inputItem + ' -> ' + outputFluid);
+		console.log('Byproducts: ' + byproducts);
+		console.log('Byproduct Amounts: ' + byproductAmounts);
+		console.log('Output Amount: ' + outputFluidAmount);
+		console.log('Temperature: ' + temperature);
+		console.log('Time: ' + time);
 		
 		temperature = temperature || 500;
 		time = time || 75;
 
 		let recipe = {}
 		//recipe['type'] = 'tconstruct:melting';
-		recipe['type'] = 'tconstruct:ore_melting';
+		recipe['type'] = 'tconstruct:melting';
 		recipe['byproducts'] = [];
 		for(let i = 0; i < byproducts.length; i++) {
 			recipe['byproducts'].push({
@@ -73,6 +79,10 @@ Fox.Processing.Melting = Fox.Processing.Melting || {};
 		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
 			return;
 		}
+		
+		temperature = temperature || 500;
+		time = time || 75;
+		
 		let recipe = {}
 		recipe['type'] = 'tconstruct:alloy';
 		recipe['inputs'] 		= [];

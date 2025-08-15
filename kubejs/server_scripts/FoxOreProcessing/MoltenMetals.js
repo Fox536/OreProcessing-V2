@@ -54,6 +54,9 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
 			return;
 		}
+		if (filledMolds.length < 1) {
+			return;
+		}
 		// Remove Molten Mixing Recipes
 		namespace.RemoveFluidMixingRecipes(event, moltenFluid);
 
@@ -77,22 +80,24 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
 			return;
 		}
-		// Add Mold Filling Recipes
-		namespace.AddFillingMoldsRecipe(event, moltenFluid, filledMolds);
-		// Add Mold Draining Recipes
-		namespace.AddEmptyingMoldsRecipe(event, moltenFluid, filledMolds);
-		
-		// Add Bucket Filling Recipes
-		//namespace.AddFillingBucketRecipe(event, moltenFluid, filledBucket);
-		// Add Bucket Draining Recipes
-		//namespace.AddEmptyingBucketRecipe(event, moltenFluid, filledBucket);
-		
-		// Add Mold Washing Recipes
-		namespace.AddSplashingMoldRecipe(event, filledMolds, ingotOutput);
+		if (filledMolds.length > 1) {
+			// Add Mold Filling Recipes
+			namespace.AddFillingMoldsRecipe(event, moltenFluid, filledMolds);
+			// Add Mold Draining Recipes
+			namespace.AddEmptyingMoldsRecipe(event, moltenFluid, filledMolds);
+			
+			// Add Bucket Filling Recipes
+			//namespace.AddFillingBucketRecipe(event, moltenFluid, filledBucket);
+			// Add Bucket Draining Recipes
+			//namespace.AddEmptyingBucketRecipe(event, moltenFluid, filledBucket);
+			
+			// Add Mold Washing Recipes
+			namespace.AddSplashingMoldRecipe(event, filledMolds, ingotOutput);
+		}
 		
 		if (Platform.isLoaded('tconstruct')) {
-			namespace.AddFillingCopperCanRecipe(event, moltenFluid);
-			namespace.AddEmptyingCopperCanRecipe(event, moltenFluid);
+			//namespace.AddFillingCopperCanRecipe(event, moltenFluid);
+			//namespace.AddEmptyingCopperCanRecipe(event, moltenFluid);
 		}
 		
 	}
@@ -104,9 +109,17 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		recipe['type'] 				= 'create:mixing';
 		recipe['heatRequirement'] 	= 'heated';
 		recipe['ingredients'] 		= [];
+		
+		console.log(inputItems);
+		
 		inputItems.forEach(input => {
 			let inputData = { "item": input };
-			if (input[0] == "#") {
+			
+			console.log(typeof(input));
+			
+			if (typeof(input) == 'object') {
+				inputData = input;
+			} else if (typeof(input) == 'string' && input[0] == "#") {
 				inputData = { "tag": input.slice(1) };
 			}
 			recipe['ingredients'].push(inputData);
@@ -210,7 +223,8 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		let recipe = {}
 		recipe['type'] 				= 'create:filling';
 		recipe['ingredients'] 		= [];
-		recipe['ingredients'].push({ 'item': 'tconstruct:copper_can' });
+		recipe['ingredients'].push({ 'item': 'tconstruct:copper_can'});
+		//recipe['ingredients'].push(Item.of('tconstruct:copper_can'));
 		recipe['ingredients'].push({ 'fluid': moltenFluid, 'amount': 90 });
 		recipe['results'] 			= [];
 		recipe['results'].push({ 'item': 'tconstruct:copper_can', 'nbt':{'fluid': moltenFluid}});

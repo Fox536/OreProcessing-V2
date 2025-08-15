@@ -9,6 +9,11 @@ Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 
 // Call Setup Functions
 ServerEvents.recipes(event => {
+	// Check if running mods with this ore
+	let enablingMods = ['create'];
+	if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+		return;
+	}
 	let namespace = Fox.Processing;
 
 	let oreName 		= '';

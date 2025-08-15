@@ -1,0 +1,1 @@
+xcopy "C:\Users\Fox536\Documents\MC\GitHub\OreProcessing-V2\kubejs" "D:\Curse\Minecraft\Instances\Create OreProcessing Testpack\kubejs" /s /e /y

@@ -44,7 +44,28 @@ Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 		}
 		let outputList;
 		// Get OutputList
-		outputList = namespace.BuildItemList(outputItem, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount);
+		outputList = namespace.BuildItemList(outputItem, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount, varianceAmount);
+
+		// Add Recipe
+		//event.recipes.createSplashing(outputList, inputItem);
+		
+		let recipe = {}
+		recipe['type'] = 'create:splashing';
+		if (inputItem[0] == '#') {
+			recipe['ingredients'] 		= [{ 'tag': inputItem.slice(1) }];
+		} else {
+			recipe['ingredients'] 		= [{ 'item': inputItem }];
+		}
+		recipe['results'] 			= outputList;
+		event.custom(recipe);
+	}
+	namespace.AddRecipeForCrushedOre = function(event, inputItem, outputItem, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount) {
+		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
+			return;
+		}
+		let outputList;
+		// Get OutputList
+		outputList = namespace.BuildItemList(outputItem, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount, 3);
 
 		// Add Recipe
 		//event.recipes.createSplashing(outputList, inputItem);
@@ -63,7 +84,7 @@ Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 	//------------------------------------------------
 	// Build Item List
 	//------------------------------------------------
-	namespace.BuildItemList = function(outputItem, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount) {
+	namespace.BuildItemList = function(outputItem, outputAmount, byproduct, byproductAmount, giveNuggets, nuggetAmount, varianceAmount) {
 		if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
 			return;
 		}
@@ -71,7 +92,7 @@ Fox.Processing.Washing 	= Fox.Processing.Washing || {};
 		// Add Output
 		itemList.push({ 'item': outputItem, 'count': outputAmount });
 		// Add Output Variance
-		itemList.push({ 'item': outputItem, 'count': outputAmount, 'chance': Fox.Processing.WashingVariance });
+		itemList.push({ 'item': outputItem, 'count': (varianceAmount || outputAmount/2), 'chance': Fox.Processing.WashingVariance });
 		// Add Byproduct
 		if (Fox.Processing.ValidByproduct(byproduct)) {
 			itemList.push({ 'item': byproduct, 'count': byproductAmount, 'chance': Fox.Processing.WashingByproductChance });

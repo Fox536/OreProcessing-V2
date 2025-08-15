@@ -39,7 +39,7 @@ Fox.Processing.MeltingRawToByproductAmount		= 30;
 Fox.Processing.MeltingTempCoal					= 800;
 Fox.Processing.MeltingTempLava					= 1000;
 Fox.Processing.MeltingTempBlazingBlood			= 1500;
-Fox.Processing.MeltingTempSoulLava				= 1500;
+Fox.Processing.MeltingTempSoulLava				= 9999;
 Fox.Processing.MeltingTime 						= 75;
 
 // MoltenMetals Variables
@@ -51,19 +51,36 @@ Fox.Processing.MoltenCrushedOreFluidAmount		= 180;
 		return !((byproduct == '') || (byproduct == undefined));
 	}
 	
-	Fox.Processing.ShouldLoadModule = function(modId) {
+	Fox.Processing.ShouldLoadModule = function(modIds, functionName) {
 		if (modIds.length == 0) {
 			return true;
 		}
-		modIds.array.forEach(modId => {
+		let results = false;
+		modIds.forEach(modId => {
 			if (Platform.isLoaded(modId)) {
-				return true;
+				results = true;
+				return;
 			}
 		});
-		return false;
+		return results;
+	}
+}());
+
+// Call Setup Functions
+ServerEvents.recipes(event => {
+	let removeRecipe = function(recipeId) {
+		// remove recipe
+		event.remove({
+			id: recipeId
+		});
 	}
 	
-}());
+	let alloys = ['bronze', 'brass', 'constantan', 'electrum', 'enderium', 'invar', 'lumium', 'signalum'];
+	alloys.forEach(alloyName =>	{
+		removeRecipe('alltheores:' + alloyName + '_dust_from_alloy_blending');
+	});
+	
+});
 
 
 // Check if Mod Loaded: Platform.isLoaded('modId')
