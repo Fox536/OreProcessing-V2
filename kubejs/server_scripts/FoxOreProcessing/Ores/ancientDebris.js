@@ -73,6 +73,15 @@ ServerEvents.recipes(event => {
 	// Add Recipes
 	//------------------------------------------------
 	let addRecipes = function(event) {
+		// Add Smelting
+		namespace.Smelting.AddRecipe(event, data.crushed, data.ingot, 1);
+		// Add Blasting
+		namespace.Blasting.AddRecipe(event, data.crushed, data.ingot, 1);
+		
+		// Add Nugget to Ingot
+		event.shapeless(data.ingot, [ data.nugget, data.nugget, data.nugget, data.nugget, data.nugget, data.nugget, data.nugget, data.nugget, data.nugget]);
+		event//.shapeless(data.ingot, [ 'tconstruct:debris_nugget', 'tconstruct:debris_nugget', 'tconstruct:debris_nugget', 'tconstruct:debris_nugget', 'tconstruct:debris_nugget', 'tconstruct:debris_nugget', 'tconstruct:debris_nugget', 'tconstruct:debris_nugget', 'tconstruct:debris_nugget']);
+		
 		// Millstone
 		namespace.Millstone.AddRecipe(event, data.ore, data.crushed, 1);
 		

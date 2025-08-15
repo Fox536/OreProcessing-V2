@@ -1,1 +1,2 @@
 xcopy "C:\Users\Fox536\Documents\MC\GitHub\OreProcessing-V2\kubejs" "D:\Curse\Minecraft\Instances\Create OreProcessing Testpack\kubejs" /s /e /y
+xcopy "C:\Users\Fox536\Documents\MC\GitHub\OreProcessing-V2\kubejs" "D:\Curse\Minecraft\Instances\SteamPunk [LPS] - Edited 080525\kubejs" /s /e /y

@@ -110,13 +110,8 @@ Fox.Processing.Molten 	= Fox.Processing.Molten || {};
 		recipe['heatRequirement'] 	= 'heated';
 		recipe['ingredients'] 		= [];
 		
-		console.log(inputItems);
-		
 		inputItems.forEach(input => {
 			let inputData = { "item": input };
-			
-			console.log(typeof(input));
-			
 			if (typeof(input) == 'object') {
 				inputData = input;
 			} else if (typeof(input) == 'string' && input[0] == "#") {

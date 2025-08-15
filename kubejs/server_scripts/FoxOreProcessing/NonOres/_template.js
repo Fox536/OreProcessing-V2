@@ -17,7 +17,6 @@ ServerEvents.recipes(event => {
 	let namespace = Fox.Processing;
 
 	let oreName 		= '';
-	let isMetal			= false;
 	let breakAmount 	= 4;
 
 	let data 				= {};

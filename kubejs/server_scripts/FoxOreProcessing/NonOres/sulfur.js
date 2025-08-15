@@ -10,36 +10,19 @@ Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 // Call Setup Functions
 ServerEvents.recipes(event => {
 	// Check if running mods with this ore
-	let enablingMods = ['forbidden_arcanus'];
+	let enablingMods = [];
 	if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
 		return;
 	}
 	let namespace = Fox.Processing;
 
-	let oreName 		= '';
+	let oreName 		= 'sulfur';
+	let breakAmount 	= 6;
 
 	let data 				= {};
-	data.ore				= 'forge:ores/arcane_crystal';
-	data.crushed			= 'forbidden_arcanus:arcane_crystal';
+	data.ore				= '#forge:ores/' + oreName;
+	data.crushed			= '#forge:gems/' + oreName;
 	data.byproduct 			= '';
-	data.breakAmount		= 4;
-	let arcane = data;
-	
-	data 					= {};
-	data.ore				= 'forge:ores/stella_arcanum';
-	data.crushed			= 'forbidden_arcanus:stellarite_piece';
-	data.byproduct 			= '';
-	data.breakAmount		= 2;
-	let stella = data;
-	
-	data 					= {};
-	data.ore				= 'forge:ores/xpetrified_ore';
-	data.crushed			= 'forbidden_arcanus:xpetrified_orb';
-	data.byproduct 			= '';
-	data.breakAmount		= 6;
-	let xpOre = data;
-	
-	// add others as needed
 	
 	//------------------------------------------------
 	// Setup
@@ -54,10 +37,7 @@ ServerEvents.recipes(event => {
 	//------------------------------------------------
 	let removeRecipes = function(event) {
 		// Remove Crushing - Ore
-		data = rune;
 		namespace.Crushing.RemoveRecipeByInput(event, data.ore);
-		
-		// Add Others Here
 	}
 
 	//------------------------------------------------
@@ -65,16 +45,7 @@ ServerEvents.recipes(event => {
 	//------------------------------------------------
 	let addRecipes = function(event) {
 		// Add Crushing - Ore
-		data = arcane;
-		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
-		
-		data = stella;
-		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
-		
-		data = xpOre;
-		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
-		
-		// Add Others Here
+		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
 	}
 	
 	

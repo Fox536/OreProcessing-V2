@@ -42,12 +42,6 @@ Fox.Processing.Melting = Fox.Processing.Melting || {};
 		if (outputFluid == '') {
 			return;
 		}
-		console.log(inputItem + ' -> ' + outputFluid);
-		console.log('Byproducts: ' + byproducts);
-		console.log('Byproduct Amounts: ' + byproductAmounts);
-		console.log('Output Amount: ' + outputFluidAmount);
-		console.log('Temperature: ' + temperature);
-		console.log('Time: ' + time);
 		
 		temperature = temperature || 500;
 		time = time || 75;

@@ -10,19 +10,18 @@ Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 // Call Setup Functions
 ServerEvents.recipes(event => {
 	// Check if running mods with this ore
-	let enablingMods = ['scguns'];
+	let enablingMods = [];
 	if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
 		return;
 	}
 	let namespace = Fox.Processing;
 
-	let oreName 		= '';
-	let isMetal			= false;
-	let breakAmount 	= 4;
+	let oreName 		= 'arcane_debris';
+	let breakAmount 	= 2;
 
 	let data 				= {};
-	data.ore				= '';
-	data.crushed			= '';
+	data.ore				= 'irons_spellbooks:' + oreName;
+	data.crushed			= 'irons_spellbooks:' + 'arcane_salvage';
 	data.byproduct 			= '';
 	
 	//------------------------------------------------
