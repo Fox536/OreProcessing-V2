@@ -1,0 +1,108 @@
+[
+	{
+		"name": "safeStart",
+		"conditions": {
+			"maxdaycount": 3
+		}
+	},
+	{
+		"name": "afterZombieOutbreak",
+		"conditions": {
+			"mindaycount": 10
+		}
+	},
+	{
+		"name": "afterPiglinOutbreak",
+		"conditions": {
+			"mindaycount": 40
+		}
+	},
+	{
+		"name": "nighttime",
+		"conditions": {
+			"mintime": 12500
+		}
+	},
+	{
+		"name": "daytime",
+		"conditions": {
+			"maxtime": 12500
+		}
+	},
+	{
+		"name": "stage1",
+		"conditions": {
+			"mindaycount": 0,
+			"maxdaycount": 9
+		}
+	},
+	{
+		"name": "stage2",
+		"conditions": {
+			"mindaycount": 10,
+			"maxdaycount": 19
+		}
+	},
+	{
+		"name": "stage3",
+		"conditions": {
+			"mindaycount": 20,
+			"maxdaycount": 29
+		}
+	},
+	{
+		"name": "stage4",
+		"conditions": {
+			"mindaycount": 30,
+			"maxdaycount": 39
+		}
+	},
+	{
+		"name": "stage5",
+		"conditions": {
+			"mindaycount": 40,
+			"maxdaycount": 49
+		}
+	},
+	{
+		"name": "stage6",
+		"conditions": {
+			"mindaycount": 50,
+			"maxdaycount": 59
+		}
+	},
+	{
+		"name": "stage7",
+		"conditions": {
+			"mindaycount": 60,
+			"maxdaycount": 69
+		}
+	},
+	{
+		"name": "stage8",
+		"conditions": {
+			"mindaycount": 70,
+			"maxdaycount": 79
+		}
+	},
+	{
+		"name": "stage9",
+		"conditions": {
+			"mindaycount": 80,
+			"maxdaycount": 89
+		}
+	},
+	{
+		"name": "stage10",
+		"conditions": {
+			"mindaycount": 90,
+			"maxdaycount": 99
+		}
+	},
+	{
+		"name": "stage11",
+		"conditions": {
+			"mindaycount": 100
+		}
+	}
+]

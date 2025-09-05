@@ -1,0 +1,202 @@
+[
+	{
+		"hostile": true,
+		"when": "onjoin",
+		"spawntype": ["spawn_egg"],
+		"result": "default"
+	},
+	{
+		"when": "onjoin",
+		"mod": "scguns",
+		"result": "deny"
+	},
+	{
+		"mob": [
+			"realmrpg_demons:chort",
+			"nefdecomod:villager_old",
+			"infectious:zombified_spider"
+		],
+		"result": "deny"
+	},	
+	{
+		"mob": [
+			"unusualprehistory:beelz",
+			"unusualprehistory:beelz_tadpole"
+		],
+		"mincount": {
+			"amount": 20,
+			"mob": [
+				"unusualprehistory:beelz",
+				"unusualprehistory:beelz_tadpole"
+			]
+		},
+		"result": "deny"
+	},
+	{
+		"hostile": true,
+		"phase": "safeStart",
+		"when": "onjoin",
+		"result": "deny"
+	},
+	{
+		"mod": "infectious",
+		"phase": "safeStart",
+		"when": "onjoin",
+		"result": "deny"
+	},
+	{
+		"phase": "afterZombieOutbreak",
+		"result": "allow",
+		"mob": "minecraft:zombie",
+		"incontrol": true,
+		"maxlight": 0,
+		"seesky": true
+		
+	},
+	{
+		"phase": "afterPiglinOutbreak",
+		"result": "allow",
+		"mob": "minecraft:zombified_piglin",
+		"incontrol": true,
+		"maxlight": 0,
+		"seesky": true
+	},
+	{
+		"phase": "afterZombieOutbreak",
+		"mob": "minecraft:zombie",
+		"incontrol": false,
+		"result": "deny"
+	},
+	{
+		"phase": "stage1",
+		"mob": [
+			"minecraft:zombie",
+			"minecraft:zombified_piglin"
+		],
+		"when": "finalize",
+		"result": "default",
+		"healthmultiply": 0.5,
+		"damagemultiply": 0.5,
+		"speedmultiply": 0.5
+	},
+	{
+		"phase": "stage2",
+		"mob": [
+			"minecraft:zombie",
+			"minecraft:zombified_piglin"
+		],
+		"when": "finalize",
+		"result": "default",
+		"healthmultiply": 0.5,
+		"damagemultiply": 0.75,
+		"speedmultiply": 1.0
+	},
+	{
+		"phase": "stage3",
+		"mob": [
+			"minecraft:zombie",
+			"minecraft:zombified_piglin"
+		],
+		"when": "finalize",
+		"result": "default",
+		"healthmultiply": 0.5,
+		"damagemultiply": 1.0,
+		"speedmultiply": 1.0
+	},
+	{
+		"phase": "stage4",
+		"mob": [
+			"minecraft:zombie",
+			"minecraft:zombified_piglin"
+		],
+		"when": "finalize",
+		"result": "default",
+		"healthmultiply": 1.0,
+		"damagemultiply": 1.2,
+		"speedmultiply": 1.0
+	},
+	{
+		"phase": "stage5",
+		"mob": [
+			"minecraft:zombie",
+			"minecraft:zombified_piglin"
+		],
+		"when": "finalize",
+		"result": "default",
+		"healthmultiply": 1.0,
+		"damagemultiply": 1.4,
+		"speedmultiply": 1.0
+	},
+	{
+		"phase": "stage6",
+		"mob": [
+			"minecraft:zombie",
+			"minecraft:zombified_piglin"
+		],
+		"when": "finalize",
+		"result": "default",
+		"healthmultiply": 1.2,
+		"damagemultiply": 1.6,
+		"speedmultiply": 1.25
+	},
+	{
+		"phase": "stage7",
+		"mob": [
+			"minecraft:zombie",
+			"minecraft:zombified_piglin"
+		],
+		"when": "finalize",
+		"result": "default",
+		"healthmultiply": 1.4,
+		"damagemultiply": 1.8,
+		"speedmultiply": 1.25
+	},
+	{
+		"phase": "stage8",
+		"mob": [
+			"minecraft:zombie",
+			"minecraft:zombified_piglin"
+		],
+		"when": "finalize",
+		"result": "default",
+		"healthmultiply": 1.6,
+		"damagemultiply": 2.0,
+		"speedmultiply": 1.25
+	},
+	{
+		"phase": "stage9",
+		"mob": [
+			"minecraft:zombie",
+			"minecraft:zombified_piglin"
+		],
+		"when": "finalize",
+		"result": "default",
+		"healthmultiply": 1.8,
+		"damagemultiply": 2.25,
+		"speedmultiply": 1.25
+	},
+	{
+		"phase": "stage10",
+		"mob": [
+			"minecraft:zombie",
+			"minecraft:zombified_piglin"
+		],
+		"when": "finalize",
+		"result": "default",
+		"healthmultiply": 2.0,
+		"damagemultiply": 2.5,
+		"speedmultiply": 1.5
+	},
+	{
+		"phase": "stage11",
+		"mob": [
+			"minecraft:zombie",
+			"minecraft:zombified_piglin"
+		],
+		"when": "finalize",
+		"result": "default",
+		"healthmultiply": 2.5,
+		"damagemultiply": 2.5,
+		"speedmultiply": 1.5
+	}
+]

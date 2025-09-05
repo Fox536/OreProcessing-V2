@@ -1,0 +1,44 @@
+[
+	{
+		"phase": "afterZombieOutbreak",
+		"mob": [
+			"minecraft:zombie"
+		],
+		"persecond": 1,
+		"attempts": 20,
+		"amount": {
+			"minimum": 10,
+			"maximum": 40
+		},
+		"conditions": {
+			"dimension": "minecraft:overworld",
+			"norestrictions": true,
+			"mindist": 30,
+			"maxdist": 80,
+			"minheight": 1,
+			"maxheight": 256,
+			"maxthis": 150
+		}
+	},
+	{
+		"phase": "afterPiglinOutbreak",
+		"mob": [
+			"minecraft:zombified_piglin"
+		],
+		"persecond": 1,
+		"attempts": 20,
+		"amount": {
+			"minimum": 10,
+			"maximum": 40
+		},
+		"conditions": {
+			"dimension": "minecraft:overworld",
+			"norestrictions": true,
+			"mindist": 30,
+			"maxdist": 80,
+			"minheight": 1,
+			"maxheight": 256,
+			"maxthis": 150
+		}
+	}
+]
