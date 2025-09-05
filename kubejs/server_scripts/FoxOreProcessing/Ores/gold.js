@@ -90,9 +90,9 @@ ServerEvents.recipes(event => {
 			namespace.Smelting.AddRecipe(event, data.raw, data.nugget, Fox.Processing.SmeltingAmount);
 			// Add Blasting
 			namespace.Blasting.AddRecipe(event, data.raw, data.nugget, Fox.Processing.BlastingAmount);
-			// Millstone
-			namespace.Millstone.AddRecipe(event, data.raw, data.crushed, Fox.Processing.MillingAmount);
 		}
+		// Millstone
+		namespace.Millstone.AddRecipe(event, data.raw, data.crushed, Fox.Processing.MillingAmount);
 		
 		// Add Crushing - Ore
 		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, namespace.CrushingAmount * breakAmount, data.byproduct, breakAmount, namespace.CrushingGivesNuggets, breakAmount);
@@ -120,4 +120,5 @@ ServerEvents.recipes(event => {
 	if (oreName != '') {
 		setup(event);
 	}
+
 });
