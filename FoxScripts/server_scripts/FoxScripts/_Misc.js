@@ -1,7 +1,7 @@
 ServerEvents.recipes(event => {
     
     // Hookshot Compat
-    if (Platform.isLoaded('alltheores')) {
+    if (Platform.isLoaded('hookshot')) {
         event.shaped(
             Item.of('hookshot:hookshot', 1), // arg 1: output
                 [
