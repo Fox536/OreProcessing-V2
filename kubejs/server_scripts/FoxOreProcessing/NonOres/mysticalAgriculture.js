@@ -12,15 +12,15 @@ let OresSetup = function(oreName, modName) {
     data.ore				= '#c:ores/' + oreName;
     data.crushed			= modName + ':' + oreName;
     data.byproduct 			= '';
-    data.breakAmount		= 3;    
+    data.breakAmount		= 4;
     
     return data;
 }
 
 // Call Setup Functions
 ServerEvents.recipes(event => {
-	// Set Mod Name Variable
-    let modName = 'irons_spellbooks';
+    // Set Mod Name Variable
+    let modName = 'mysticalagriculture';
     
 	// Check if running mods with this ore
 	let enablingMods = [modName];
@@ -28,23 +28,29 @@ ServerEvents.recipes(event => {
 		return;
 	}
 	let namespace = Fox.Processing;
-	
+
 	let oreName 		= '';
 	let ores = [];
     let data = {};
     
-	// Arcane Debris
-    data = OresSetup('arcane_debris', modName);
-	data.crushed = modName + ':arcane_salvage';
-	ores.push(data);
-	
-	// Arcane Debris
-    data = OresSetup('mithril', modName);
-	data.crushed = modName + ':raw_' + oreName;
-	data.breakAmount = 4;
+    // Inferium
+    data = OresSetup('inferium', modName);
+	data.crushed = modName + ':' + oreName + '_essence';
     ores.push(data);
-	
-	// add others as needed
+    
+    // Prosperity
+    data = OresSetup('prosperity', modName);
+	data.crushed = modName + ':' + oreName + '_shard';
+    ores.push(data);
+    
+    // Soulium
+    data = OresSetup('soulium', modName);
+	data.crushed = modName + ':' + oreName + '_dust';
+    ores.push(data);
+    
+    oreName = 'inferium';
+    
+    // add others as needed
     /*
     // Crimson Iron
     oreName                 = 'crimson_iron';
@@ -55,7 +61,7 @@ ServerEvents.recipes(event => {
 	data.breakAmount		= 3;
 	ores.push(data);
     */
-	
+    
 	//------------------------------------------------
 	// Setup
 	//------------------------------------------------
@@ -68,22 +74,26 @@ ServerEvents.recipes(event => {
 	// Remove Recipes
 	//------------------------------------------------
 	let removeRecipes = function(event) {
-		// Remove Crushing - Ore
+		// Remove Crushing Recipes
 		for (let i = 0; i < ores.length; i++) {
 			data = ores[i];
 			namespace.Crushing.RemoveRecipeByInput(event, data.ore);
 		}
+		
+		// Add Others Here
 	}
 
 	//------------------------------------------------
 	// Add Recipes
 	//------------------------------------------------
 	let addRecipes = function(event) {
-		// Add Crushing Recipes
+        // Add Crushing Recipes
 		for (let i = 0; i < ores.length; i++) {
 			data = ores[i];
 			namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
 		}
+        
+		// Add Others Here
 	}
 	
 	

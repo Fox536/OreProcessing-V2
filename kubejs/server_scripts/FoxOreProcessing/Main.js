@@ -12,7 +12,7 @@ Fox.Processing.XPNuggets						= 'create:experience_nugget';
 
 // Globals
 Fox.Processing.ExtraVariance 					= 0.75;
-Fox.Processing.UsingReducedSmelting				= true;
+Fox.Processing.UsingReducedSmelting				= false;
 
 // Crushing Variables
 Fox.Processing.CrushingVariance 				= Fox.Processing.ExtraVariance;
@@ -43,6 +43,7 @@ Fox.Processing.MeltingTempSoulLava				= 9999;
 Fox.Processing.MeltingTime 						= 75;
 
 // MoltenMetals Variables
+Fox.Processing.UsingMolten						= false;
 Fox.Processing.MoltenRawOreFluidAmount			= 90;
 Fox.Processing.MoltenCrushedOreFluidAmount		= 180;
 	
@@ -68,18 +69,20 @@ Fox.Processing.MoltenCrushedOreFluidAmount		= 180;
 
 // Call Setup Functions
 ServerEvents.recipes(event => {
-	let removeRecipe = function(recipeId) {
-		// remove recipe
-		event.remove({
-			id: recipeId
+	// Handle Melting/Molten Recipes
+	if (Fox.Processing.UsingMolten) {
+		let removeRecipe = function(recipeId) {
+			// remove recipe
+			event.remove({
+				id: recipeId
+			});
+		}
+		
+		let alloys = ['bronze', 'brass', 'constantan', 'electrum', 'enderium', 'invar', 'lumium', 'signalum'];
+		alloys.forEach(alloyName =>	{
+			removeRecipe('alltheores:' + alloyName + '_dust_from_alloy_blending');
 		});
 	}
-	
-	let alloys = ['bronze', 'brass', 'constantan', 'electrum', 'enderium', 'invar', 'lumium', 'signalum'];
-	alloys.forEach(alloyName =>	{
-		removeRecipe('alltheores:' + alloyName + '_dust_from_alloy_blending');
-	});
-	
 });
 
 

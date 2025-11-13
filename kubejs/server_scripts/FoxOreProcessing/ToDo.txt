@@ -1,50 +1,17 @@
-
-
 Still to do...
 
-	- Remove Dust Mixing Recipes
-	- Add Alloys in Molds for washing recipe
-	
-	
-	
-	
-Molten Ores Setup
-	x		Aluminum
-	x		Copper
-	x		Gold
-	o		Iridium (no fluid yet!)
-	x		Iron
-	x		Lead
-	x		Nickel
-	x		Osmium
-	x		Platinum
-	x		Silver
-	x		Tin
-	x		Uranium
-	x		Zinc
-	
-	x		Ancient Debris
-	x		AllTheModium
-	x		Vibranium
-	x		Unobtainium
-	
-	o 		crimson Iron
-	O		azure Silver
-	
-	x		cobalt
-	
-	O		scguns
-	O		forbidden arcanus
-	
-	
------------
-Alloys
-	O		Invar
-	O		Electrum
-	O		Bronze
-	O		Enderium
-	O		Lumin
-	O		Signalum
-	O		Constantan
-	O		Brass
-	O		Steel 	(No Recipe Yet!)
+xycraft
+ - Xychorium Colored Ore
+
+Actually Additions
+ - Black Quartz
+
+Modern Industrialization
+ - Antimony Ore
+ - Lignite Coal
+ - Monazite Ore
+ - Tungsten Ore
+
+Applied Energistics2 - ?
+ - Certus - Dust
+ - Fluix - Dust

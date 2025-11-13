@@ -9,6 +9,9 @@ Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 
 // Call Setup Functions
 ServerEvents.recipes(event => {
+	
+	return;
+	
 	// Check if running mods with this ore
 	let enablingMods = [];
 	if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
@@ -20,8 +23,8 @@ ServerEvents.recipes(event => {
 	let breakAmount 	= 6;
 
 	let data 				= {};
-	data.ore				= '#forge:ores/' + oreName;
-	data.crushed			= '#forge:gems/' + oreName;
+	data.ore				= '#c:ores/' + oreName;
+	data.crushed			= '#c:gems/' + oreName;
 	data.byproduct 			= '';
 	
 	//------------------------------------------------

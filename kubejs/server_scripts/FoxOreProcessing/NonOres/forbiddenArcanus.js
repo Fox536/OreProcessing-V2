@@ -7,39 +7,55 @@ Fox.Processing 				= Fox.Processing || {};
 Fox.Processing.Ores 		= Fox.Processing.Ores || {};
 Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 
+let OresSetup = function(oreName, modName) {
+    data 					= {};
+	data.ore				= '#c:ores/' + oreName;
+	data.crushed			= modName + ':' + oreName;
+	data.byproduct 			= '';
+	data.breakAmount		= 4;
+    return data;
+}
+
 // Call Setup Functions
 ServerEvents.recipes(event => {
+    // Set Mod Name Variable
+    let modName = 'forbidden_arcanus';
+    
 	// Check if running mods with this ore
-	let enablingMods = ['forbidden_arcanus'];
+	let enablingMods = [modName];
 	if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
 		return;
 	}
 	let namespace = Fox.Processing;
 
-	let oreName 		= '';
-
-	let data 				= {};
-	data.ore				= 'forge:ores/arcane_crystal';
-	data.crushed			= 'forbidden_arcanus:arcane_crystal';
-	data.byproduct 			= '';
-	data.breakAmount		= 4;
-	let arcane = data;
+	// Data Setup
+	let oreName = '';
+	let ores 	= [];
+	let data 	= {};
 	
-	data 					= {};
-	data.ore				= 'forge:ores/stella_arcanum';
-	data.crushed			= 'forbidden_arcanus:stellarite_piece';
-	data.byproduct 			= '';
-	data.breakAmount		= 2;
-	let stella = data;
+	// Arcane Crystal
+	data = OresSetup('arcane_crystal', modName);
+	data.byproduct = modName + ':xpetrified_orb';
+    ores.push(data);
 	
-	data 					= {};
-	data.ore				= 'forge:ores/xpetrified_ore';
-	data.crushed			= 'forbidden_arcanus:xpetrified_orb';
-	data.byproduct 			= '';
-	data.breakAmount		= 6;
-	let xpOre = data;
+	// Rune
+	data = OresSetup('rune', modName);
+	data.byproduct = modName + ':xpetrified_orb';
+    ores.push(data);
 	
-	// add others as needed
+	// Stella Arcanum
+	data = OresSetup('stella_arcanum', modName);
+	data.crushed = modName + ':stellarite_piece';
+	data.byproduct = modName + ':xpetrified_orb';
+    ores.push(data);
+	
+	// Stella Arcanum
+	data = OresSetup('xpetrified_ore', modName);
+	data.crushed = modName + ':xpetrified_orb';
+	data.breakAmount = 6;
+	ores.push(data);
+	
+	oreName = 'arcane_crystal';
 	
 	//------------------------------------------------
 	// Setup
@@ -53,28 +69,22 @@ ServerEvents.recipes(event => {
 	// Remove Recipes
 	//------------------------------------------------
 	let removeRecipes = function(event) {
-		// Remove Crushing - Ore
-		data = rune;
-		namespace.Crushing.RemoveRecipeByInput(event, data.ore);
-		
-		// Add Others Here
+		// Remove Crushing Recipes
+		for (let i = 0; i < ores.length; i++) {
+			data = ores[i];
+			namespace.Crushing.RemoveRecipeByInput(event, data.ore);
+		}
 	}
 
 	//------------------------------------------------
 	// Add Recipes
 	//------------------------------------------------
 	let addRecipes = function(event) {
-		// Add Crushing - Ore
-		data = arcane;
-		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
-		
-		data = stella;
-		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
-		
-		data = xpOre;
-		namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
-		
-		// Add Others Here
+		// Add Crushing Recipes
+		for (let i = 0; i < ores.length; i++) {
+			data = ores[i];
+			namespace.Crushing.AddRecipe(event, data.ore, data.crushed, data.breakAmount, data.byproduct, 1, namespace.CrushingGivesNuggets, 1);
+		}
 	}
 	
 	

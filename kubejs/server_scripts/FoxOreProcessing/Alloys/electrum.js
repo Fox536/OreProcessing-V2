@@ -9,6 +9,11 @@ Fox.Processing.OresSetup 	= Fox.Processing.OresSetup || {}
 
 // Call Setup Functions
 ServerEvents.recipes(event => {
+	// If not Using Molten, exit
+	if (!Fox.Processing.UsingMolten) {
+		return;
+	}
+	
 	// Check if running mods with this ore
 	let enablingMods = ['alltheores', 'immersiveengineering', 'tconstruct'];
 	if (!Fox.Processing.ShouldLoadModule(enablingMods)) {
